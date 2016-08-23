@@ -24,6 +24,9 @@ echo "args $1; $2; $3; $4"
 PROJ=$1
 URLFILE=$2
 FREQ=$3
+
+
+
 SCRAPERDIR=$4
 
 # defaults
@@ -57,6 +60,7 @@ echo $QUICKSCRAPE on $URLFILE into $PROJ rate $FREQ
 
 echo "run quickscrape on $PROJ; urls=$URLFILE; scrapers=$SCRAPERDIR; freq=$FREQ"
 
-QSCMD=" -o $PROJ -r $URLFILE -d $SCRAPERDIR -i $FREQ "
+QSCMD=" -o $PROJ -r $URLFILE -d $SCRAPERDIR -i $FREQ -c "
 echo qscommand $QSCMD
+$QUICKSCRAPE --version test2016-01
 $QUICKSCRAPE $QSCMD

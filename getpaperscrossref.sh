@@ -50,9 +50,11 @@ fi
 # filters
 MEMBERS=""
 LICENSES=""
-if [ "$FILTER" == "LICENSE" ]; then
-	echo "using OPENLICENSES.sh"
-	. OPENLICENSES.sh
+if [ "$FILTER" == "ALL" ]; then
+	echo "using ALL licenses"
+elif [ "$FILTER" == "LICENSE" ]; then
+		echo "using OPENLICENSES.sh"
+		. OPENLICENSES.sh
 elif [ "$FILTER" == "PUBLISHER" ]; then
 	echo "using OPENPUBLISHERS.sh"
 	. OPENPUBLISHERS.sh
