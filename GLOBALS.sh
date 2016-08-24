@@ -21,3 +21,6 @@ export AMIBIN="${HOME}/workspace/cmdev/ami-dev/target/appassembler/bin"
 
 # edit this to point to scraper directory
 export SCRAPERDIR_GLOBAL=${HOME}/workspace/journal-scrapers/scrapers
+
+# defaul scraper frequency
+export FREQ_GLOBAL=20

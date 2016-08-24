@@ -37,6 +37,8 @@ else
 fi
 echo "Using urls from $URLFILE"
 
+echo "freq... $FREQ"
+ 
 if [ "$FREQ" = '' ]; then
 	FREQ=5
 fi
@@ -62,5 +64,4 @@ echo "run quickscrape on $PROJ; urls=$URLFILE; scrapers=$SCRAPERDIR; freq=$FREQ"
 
 QSCMD=" -o $PROJ -r $URLFILE -d $SCRAPERDIR -i $FREQ -c "
 echo qscommand $QSCMD
-$QUICKSCRAPE --version test2016-01
 $QUICKSCRAPE $QSCMD
