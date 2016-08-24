@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # global variables
-. GLOBALS.sh
+. $SCRIPTS/GLOBALS.sh
 
 # help
 if [ "$1" == '' ]; then

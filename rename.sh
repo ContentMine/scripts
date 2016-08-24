@@ -4,7 +4,7 @@
 # normally only used by the system
 
 # global variables
-. GLOBALS.sh
+. $SCRIPTS/GLOBALS.sh
 
 # help
 if [ $3 = '']; then
