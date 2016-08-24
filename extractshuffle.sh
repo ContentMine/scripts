@@ -3,7 +3,8 @@
 # extract urls from project
 
 # global variables
-. GLOBALS.sh
+echo "AMIBIN $AMIBIN"
+. $SCRIPTS/GLOBALS.sh
 
 # help
 if [ "$1" = '' ]; then

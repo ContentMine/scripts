@@ -1,7 +1,8 @@
 #!/bin/bash
 
 
-export SCRIPTS=${HOME}/workspace/cmdev/scripts
+#export SCRIPTS=${HOME}/workspace/cmdev/scripts
+export SCRIPTS=${HOME}/scripts
 
 # edit this to point to scripts directory
 if [ "$SCRIPTS" == '' ]; then
@@ -11,7 +12,7 @@ if [ "$SCRIPTS" == '' ]; then
 fi
 
 # edit this to the bin directory with the AMI executables
-export AMIBIN="${HOME}/workspace/cmdev/ami-dev/target/appassembler/bin"
+export AMIBIN="${HOME}/ami2-0.1-SNAPSHOT/bin"
 
 # uncomment this to the latest get/pull fo quickscrape
 # export QUICKSCRAPEJS="${HOME}/workspace/quickscrape/bin/quickscrape.js"
@@ -20,4 +21,4 @@ export AMIBIN="${HOME}/workspace/cmdev/ami-dev/target/appassembler/bin"
 # export GETPAPERSJS="${HOME}/workspace/getpapers/bin/getpapers.js"
 
 # edit this to point to scraper directory
-export SCRAPERDIR_GLOBAL=${HOME}/workspace/journal-scrapers/scrapers
+export SCRAPERDIR_GLOBAL=${HOME}/journal-scrapers/scrapers

@@ -3,7 +3,7 @@
 # runs quickscrape
 
 # global variables
-. GLOBALS.sh
+. $SCRIPTS/GLOBALS.sh
 
 # help
 if [ "$2" = '' ]; then
@@ -62,5 +62,4 @@ echo "run quickscrape on $PROJ; urls=$URLFILE; scrapers=$SCRAPERDIR; freq=$FREQ"
 
 QSCMD=" -o $PROJ -r $URLFILE -d $SCRAPERDIR -i $FREQ -c "
 echo qscommand $QSCMD
-$QUICKSCRAPE --version test2016-01
 $QUICKSCRAPE $QSCMD
