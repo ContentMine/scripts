@@ -37,5 +37,5 @@ echo command $CMD
 $AMIBIN/cproject $CMD
 cp $PROJ/outUrls.txt $INURLS
 echo "IN again $INURLS"
-. $SCRIPTS/quickscrape.sh $PROJ $INURLS $FREQ $SCRAPERDIR_GLOBAL 
+. $SCRIPTS/quickscrape.sh --proj="$PROJ" --inUrls="$INURLS" --freq="$FREQ" --scraper="$SCRAPERDIR_GLOBAL" 
 echo "finished"
