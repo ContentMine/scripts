@@ -35,6 +35,7 @@ ls -lt $PROJ/urls.txt-save
 CMD=" --project $PROJ --inUrls $INURLS markEmpty --outUrls $OUTURLS"
 echo command $CMD
 $AMIBIN/cproject $CMD
+
 cp $PROJ/outUrls.txt $INURLS
 echo "IN again $INURLS"
 . $SCRIPTS/quickscrape.sh --proj="$PROJ" --inUrls="$INURLS" --freq="$FREQ" --scraper="$SCRAPERDIR_GLOBAL" 
