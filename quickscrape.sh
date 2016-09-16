@@ -11,24 +11,23 @@ if [ "$2" = '' ]; then
 	echo "
     QUICKSCRAPE
     quickscrape.sh cproject urlsToScrape [scraperdir [frequency]
-        proj     (REQD) the project
-        urls (REQD) file of urls
-        scraperDir   (OPT) scraper directory (defaults to $SCRAPERDIR_GLOBAL)
-        freq    (OPT)  (download/min), defaults to 5
+        proj=         (REQD) the project
+        urls=         (REQD) file of urls
+        scraperDir=   (OPT) scraper directory (defaults to $SCRAPERDIR_GLOBAL)
+        freq=         (OPT)  (download/min), defaults to 5
 	"
 	return
 fi
 
-echo "SCRIPT..."
-
-
-FREQ=5
+FREQ=17
+CPROJ=""
+SCRAPERDIR=""
+URLFILE=""
 
 # read the options
-TEMP=`getopt --long proj:,urls:,scraperDir::,freq:: -n 'quickscrape.sh' -- "$@"`
+TEMP=`getopt --long freq:,proj:,scraperDir:,urls: -n 'quickscrape.sh' -- "$@"`
 eval set -- "$TEMP"
-
-echo "TEMP $TEMP"
+getopt
 
 # extract options and their arguments into variables.
 while true ; do
@@ -60,7 +59,6 @@ done
 	
 echo "args proj: $CPROJ ; freq $FREQ ; scraperDir $SCRAPERDIR ; urls $URLFILE";
 
-
 # args
 
 # defaults
@@ -76,7 +74,7 @@ echo "freq... $FREQ"
 if [ "$FREQ" = '' ]; then
 	FREQ=10
 fi
-
+echo "SCRAPER_DIR>> $SCRAPERDIR"
 if [ "$SCRAPERDIR" = '' ]; then
 	SCRAPERDIR=$SCRAPERDIR_GLOBAL
 fi
@@ -84,6 +82,7 @@ if [ "$SCRAPERDIR" = '' ]; then
     echo "must give SCRAPERDIR"
 	return
 fi
+echo "SCRAPER_DIR>>> $SCRAPERDIR"
 
 if [ "$QUICKSCRAPEJS" != '' ]; then
     QUICKSCRAPE=$QUICKSCRAPEJS
@@ -91,6 +90,9 @@ else
     QUICKSCRAPE=quickscrape
 fi
 echo $QUICKSCRAPE on $URLFILE into $PROJ rate $FREQ
+
+# to install quickscrape 
+# npm install -g git+https://github.com/tarrow/quickscrape#enableCMLayout
 
 #defaults
 

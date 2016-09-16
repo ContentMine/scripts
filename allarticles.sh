@@ -3,7 +3,16 @@
 # create open date-limited download
 
 # global variables
+if [ "$SCRIPTS" == "" ]; then
+	echo "FAILED TO INITIALIZE"
+else
+	echo "SCRIPTS: $SCRIPTS"
+fi
+
 . $SCRIPTS/GLOBALS.sh
+if [ "$SCRIPTS" == "" ]; then
+	echo "FAILED TO INITIALIZE"
+fi
 
 # help
 if [ "$3" == '' ]; then
@@ -34,7 +43,6 @@ UNTIL=$3
 
 # extract and shuffle URLs
 . $SCRIPTS/extractshuffle.sh "$PROJECTROOT$FROM" urls.txt shuffle
-echo "extracted to $PROJECTROOT$FROM urls.txt"
 
 # quickscrape the URLS, use $SCRAPERDIR_GLOBAL by default
 PROJ="$PROJECTROOT$FROM"

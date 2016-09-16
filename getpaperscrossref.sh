@@ -11,30 +11,62 @@ if [ "$1" = "" ]; then
 	echo "
     GETPAPERS
     getpaperscrossref.sh cproject filter from until
-        cproject     (REQD) the project
-        filter       (REQD) type of filter (LICENSE | PUBLISHER)
-        from         (OPT)  from date (yyyy-mm-dd) (default all)
-        until        (OPT)  until date (yyyy-mm-dd) (default today)
-        type         (OPT)  crossref type of publication (default journal-article)
+        proj=        (REQD) the project
+        filter=      (REQD) type of filter (LICENSE | PUBLISHER)
+        from=        (OPT)  from date (yyyy-mm-dd) (default all)
+        until=       (OPT)  until date (yyyy-mm-dd) (default today)
+        type=        (OPT)  crossref type of publication (default journal-article)
 	"
 	return
 fi
+
+# read the options
+TEMP=`getopt --long proj:,filter:,from:,until:,type: -n 'getpaperscrossref.sh' -- "$@"`
+eval set -- "$TEMP"
+getopt
+
+TYPE="journal-article"
+
+# extract options and their arguments into variables.
+while true ; do
+    case "$1" in
+        --proj)
+            case "$2" in
+                *) CPROJ=$2 ; shift 2 ;;
+            esac ;;
+        --filter)
+            case "$2" in
+                *) FILTER=$2 ; shift 2 ;;
+            esac ;;
+        --from)
+            case "$2" in
+                "") shift 2;;
+                *) FROM=$2 ; shift 2 ;;
+            esac ;;
+        --until)
+            case "$2" in
+                "") shift 2 ;;
+                *) UNTIL=$2 ; shift 2 ;;
+            esac ;;
+        --type)
+            case "$2" in
+                "") shift 2 ;;
+                *) TYPE=$2 ; shift 2 ;;
+            esac ;;
+        --) shift ; break ;;
+        *) echo "parsing error in getpaperscrossref.sh" ; exit 1 ;;
+    esac
+done
 	
-# args
-PROJECT=$1
-FILTER=$2
-FROM=$3
-UNTIL=$4
-TYPE=$5
+if [ "$CPROJ" == '' ]; then
+	echo "NO Project given";
+	return;
+fi
 
 if [ "$GETPAPERSJS" != "" ]; then
     GETPAPERS=$GETPAPERSJS
 else
     GETPAPERS=getpapers
-fi
-
-if [ "$TYPE" == "" ]; then
-	TYPE="journal-article"
 fi
 
 # dates
@@ -54,10 +86,10 @@ if [ "$FILTER" == "ALL" ]; then
 	echo "using ALL licenses"
 elif [ "$FILTER" == "LICENSE" ]; then
 		echo "using OPENLICENSES.sh"
-		. OPENLICENSES.sh
+		. $SCRIPTS/OPENLICENSES.sh
 elif [ "$FILTER" == "PUBLISHER" ]; then
 	echo "using OPENPUBLISHERS.sh"
-	. OPENPUBLISHERS.sh
+	. $SCRIPTS/OPENPUBLISHERS.sh
 else
 	echo "unknown filter type $FILTER"
 	return
@@ -70,4 +102,3 @@ echo running $GETPAPERS $CMD
 
 $GETPAPERS $CMD
 
-echo "finished getpapers"

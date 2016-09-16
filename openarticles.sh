@@ -3,7 +3,7 @@
 # create open date-limited download
 
 # global variables
-. GLOBALS.sh
+. $SCRIPTS/GLOBALS.sh
 
 # help
 if [ "$3" == '' ]; then
@@ -23,6 +23,7 @@ if [ "$3" == '' ]; then
     "
     return
 fi
+
 
 # args    
 PROJECTROOT=$1

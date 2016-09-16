@@ -6,11 +6,9 @@ To instasll quickscrape:
 npm install --global git+http://github.com/tarrow/getpapers#improveCrossRefSingleFilter
 ```
 
-
 ## GLOBALS.sh
 
 sets up global variables for later applications. Will need editing for local addresses
-
 
 ## OPENPUBLISHERS.sh
 
