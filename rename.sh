@@ -7,7 +7,7 @@
 . $SCRIPTS/GLOBALS.sh
 
 # help
-if [ $3 = '']; then
+if [ $3 = '' ]; then
     echo "
     RENAME FILES
     rename.sh cproject file

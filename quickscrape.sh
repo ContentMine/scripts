@@ -11,10 +11,11 @@ if [ "$2" = '' ]; then
 	echo "
     QUICKSCRAPE
     quickscrape.sh cproject urlsToScrape [scraperdir [frequency]
-        proj=         (REQD) the project
-        urls=         (REQD) file of urls
-        scraperDir=   (OPT) scraper directory (defaults to $SCRAPERDIR_GLOBAL)
-        freq=         (OPT)  (download/min), defaults to 5
+        proj     (REQD) the project
+        urls     (REQD) file of urls
+        scraperDir   (OPT) scraper directory (defaults to $SCRAPERDIR_GLOBAL)
+        freq    (OPT)  (download/min), defaults to 5
+        level   (OPT)  debug level (defaults to debug)
 	"
 	return
 fi
@@ -26,6 +27,16 @@ URLFILE=""
 
 # read the options
 TEMP=`getopt --long freq:,proj:,scraperDir:,urls: -n 'quickscrape.sh' -- "$@"`
+echo "SCRIPT..."
+
+
+FREQ=30
+LEVEL='info'
+URLFILE="$PROJ/urls.txt"
+SCRAPERDIR=$SCRAPERDIR_GLOBAL
+
+# read the options
+TEMP=`getopt --long proj:,urls:,scraperDir:,freq:,level: -n 'quickscrape.sh' -- "$@"`
 eval set -- "$TEMP"
 getopt
 
@@ -34,39 +45,38 @@ while true ; do
     case "$1" in
         --freq)
             case "$2" in
-                "") FREQ='5' ; shift 2 ;;
-                *) FREQ=$2 ; shift 2 ; echo "freq $FREQ" ;;
+                "") shift 2 ;;
+                *) FREQ=$2 ; shift 2 ;;
+            esac ;;
+        --level)
+            case "$2" in
+                "") LEVEL='debug' ; shift 2 ;;
+                *) LEVEL=$2 ; shift 2 ;;
             esac ;;
         --proj)
             case "$2" in
                 "") shift 2 ;;
-                *) CPROJ=$2 ; shift 2 ; echo "proj $CPROJ" ;;
+                *) CPROJ=$2 ; shift 2 ;;
             esac ;;
         --scraperDir)
             case "$2" in
                 "") shift 2;;
-                *) SCRAPERDIR=$2 ; shift 2 ; echo "scraperDir $SCRAPERDIR" ;;
+                *) SCRAPERDIR=$2 ; shift 2 ;;
             esac ;;
         --urls)
             case "$2" in
                 "") shift 2 ;;
-                *) URLFILE=$2 ; shift 2 ; echo "urls $URLS" ;;
+                *) URLFILE=$2 ; shift 2 ;;
             esac ;;
         --) shift ; break ;;
         *) echo "parsing error in quickscrape.sh" ; exit 1 ;;
     esac
 done
 	
-echo "args proj: $CPROJ ; freq $FREQ ; scraperDir $SCRAPERDIR ; urls $URLFILE";
+echo "QUICKSCRAPE: proj: $CPROJ ; freq $FREQ ; scraperDir $SCRAPERDIR ; urls $URLFILE";
 
 # args
 
-# defaults
-if [ "$URLFILE" = '' ]; then
-	URLFILE="$PWD/$PROJ/urls.txt"
-else 
-	URLFILE="$PWD/$URLFILE"
-fi
 echo "Using urls from $URLFILE"
 
 echo "freq... $FREQ"
@@ -98,7 +108,10 @@ echo $QUICKSCRAPE on $URLFILE into $PROJ rate $FREQ
 
 echo "run quickscrape on $PROJ; urls=$URLFILE; scrapers=$SCRAPERDIR; freq=$FREQ"
 
-QSCMD=" -o $PROJ -r $URLFILE -d $SCRAPERDIR -i $FREQ -c "
+DATE=`date +%Y-%m-%d-%H-%M`
+LOGFILE="$PROJ/quickscrape.$DATE.log"
+
+QSCMD=" -o $PROJ -r $URLFILE -d $SCRAPERDIR -i $FREQ -c -l $LEVEL --logfile $PROJ/test1.log"
 echo qscommand $QSCMD
-$QUICKSCRAPE $QSCMD
+$QUICKSCRAPE $QSCMD  2>&1 | tee $LOGFILE
 
