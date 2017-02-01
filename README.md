@@ -1,7 +1,7 @@
 # scripts
 
 Scripts (initially BASH but could be others) to run commandline applications.
-To instasll quickscrape:
+To install quickscrape:
 ```
 npm install --global git+http://github.com/tarrow/getpapers#improveCrossRefSingleFilter
 ```
